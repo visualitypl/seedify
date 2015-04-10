@@ -25,7 +25,7 @@ module Seedify
       def get_type_casted_value(value, type)
         case type.to_s
         when 'boolean'
-          value.to_s.in?(%{1 true})
+          %w{1 true}.include?(value.to_s)
         when 'integer'
           (value || 0).to_i
         else

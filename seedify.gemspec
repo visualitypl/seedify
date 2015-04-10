@@ -28,5 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'scrutinizer-ocular',        '~> 1.0'
   spec.add_development_dependency 'simplecov',                 '~> 0.9'
 
-  spec.add_runtime_dependency 'rails', '>= 3.0'
+  spec.add_runtime_dependency 'activesupport', '>= 3.0'
+  spec.add_runtime_dependency 'rails',         '>= 3.0'
 end

@@ -4,6 +4,7 @@
 [![Downloads](https://img.shields.io/gem/dt/seedify.svg?style=flat-square)](https://rubygems.org/gems/seedify)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/visualitypl/seedify.svg?style=flat-square)](https://scrutinizer-ci.com/g/visualitypl/seedify/?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/github/visualitypl/seedify.svg?style=flat-square)](https://codeclimate.com/github/visualitypl/seedify)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/visualitypl/seedify.svg?style=flat-square)](https://codeclimate.com/github/visualitypl/seedify)
 
 Let your seed code become a first-class member of the Rails app and put it into seed objects. **seedify** allows to implement and organize seeds in object-oriented fashion, putting them into `app/seeds` alongside the controllers, models etc. It also provides handy syntax for command line parameters and progress logging.
 

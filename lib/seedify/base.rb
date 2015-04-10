@@ -14,7 +14,7 @@ module Seedify
     end
 
     def self.params(overrides)
-      stacked_params = (Seedify::CallStack.last.try(:params) || {}).merge(overrides)
+      stacked_params = ((last = Seedify::CallStack.last) ? last.params : {}).merge(overrides)
       defined_params = get_param_readers.map do |param_name, options|
         [param_name, Seedify::ParamValue.get(param_name, options)]
       end.to_h
