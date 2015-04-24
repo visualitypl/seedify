@@ -12,7 +12,7 @@ Here's an overview of what you can achieve with **seedify**:
 
 - organize seed code in object-oriented, Rails convention fitting fashion
 - take advantage of inheritance and modularization when writing seeds
-- invoke seeds as rake tasks or from within the db/console
+- invoke seeds as rake tasks or from within the app/console
 - allow to specify custom parameters for your seeds, typed and with defaults
 - log the seed progress (e.g. mass creation) without effort
 - combine with [factory_girl](https://github.com/thoughtbot/factory_girl) to simplify object creation and share fixtures with specs
