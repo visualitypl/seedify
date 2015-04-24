@@ -17,7 +17,7 @@ describe Seedify::Storage do
   describe '#seed_directory' do
     subject { Seedify::Storage.seed_directory }
 
-    it { is_expected.to eq 'spec/fixtures/app/seeds' }
+    it { is_expected.to eq 'spec/fixtures/db/seeds' }
   end
 
   describe '#seed_list' do
@@ -25,11 +25,5 @@ describe Seedify::Storage do
 
     it { is_expected.to include 'ApplicationSeed' }
     it { is_expected.to include 'Admin::BlogPostSeed' }
-  end
-
-  describe '#max_seed_name_length' do
-    subject { Seedify::Storage.max_seed_name_length }
-
-    it { is_expected.to eq 'Admin::BlogPostSeed'.length }
   end
 end

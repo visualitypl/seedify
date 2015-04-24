@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    seedify (0.1.1)
+    seedify (0.2.0)
       activesupport (>= 3.0)
       rails (>= 3.0)
 

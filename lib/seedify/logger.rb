@@ -2,6 +2,16 @@ module Seedify
   class Logger
     attr_reader :context
 
+    def self.seed_name_formatter(name)
+      name.to_s.sub(/Seed$/, '')
+    end
+
+    def self.max_seed_name_length
+      @max_seed_name_length ||= Seedify::Storage.seed_list.map do |name|
+        seed_name_formatter(name).length
+      end.max
+    end
+
     def initialize(context)
       @context = context
     end
@@ -73,8 +83,8 @@ module Seedify
     end
 
     def name
-      text = context.class.name
-      text = (' ' * [0, Seedify::Storage.max_seed_name_length - text.length].max) + text
+      text = self.class.seed_name_formatter(context.class)
+      text = (' ' * [0, self.class.max_seed_name_length - text.length].max) + text
 
       colorize(text, 32)
     end

@@ -6,16 +6,30 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/visualitypl/seedify.svg?style=flat-square)](https://codeclimate.com/github/visualitypl/seedify)
 [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/visualitypl/seedify.svg?style=flat-square)](https://codeclimate.com/github/visualitypl/seedify)
 
-Let your seed code become a first-class member of the Rails app and put it into seed objects. **seedify** allows to implement and organize seeds in object-oriented fashion, putting them into `app/seeds` alongside the controllers, models etc. It also provides handy syntax for command line parameters and progress logging.
+Let your seed code become a first-class member of the Rails app and put it into seed objects. **seedify** allows to implement and organize seeds in object-oriented fashion, putting them into `db/seeds` which organizes seeds much like `app/models` does with models etc. It also provides handy syntax for command line parameters and progress logging.
 
 Here's an overview of what you can achieve with **seedify**:
 
 - organize seed code in object-oriented, Rails convention fitting fashion
 - take advantage of inheritance and modularization when writing seeds
-- invoke seeds as rake tasks or from within the app/console
+- invoke seeds as rake tasks or from within the db/console
 - allow to specify custom parameters for your seeds, typed and with defaults
 - log the seed progress (e.g. mass creation) without effort
 - combine with [factory_girl](https://github.com/thoughtbot/factory_girl) to simplify object creation and share fixtures with specs
+
+## Installation
+
+First, add **seedify** to `Gemfile`. Be sure to add it just to group(s) you'll actually use it in:
+
+```ruby
+gem 'seedify', group: 'development'
+```
+
+Then run:
+
+```sh
+bundle install
+```
 
 ## Usage
 
@@ -24,7 +38,7 @@ Here's an overview of what you can achieve with **seedify**:
 You should start by implementing the `ApplicationSeed` class:
 
 ```ruby
-# app/seeds/application_seed.rb
+# db/seeds/application_seed.rb
 class ApplicationSeed < Seedify::Base
   def call
     if Admin.empty?
@@ -183,7 +197,7 @@ end
 You can separate the seed code into domains that fit your application best (including modules). In this case, we'll create model-oriented seeds for `Admin` and `User` models and keep application-wide code and param readers in application seed:
 
 ```ruby
-# app/seeds/application_seed.rb
+# db/seeds/application_seed.rb
 class ApplicationSeed < Seed::Base
   include FactoryGirl::Syntax::Methods
 
@@ -208,7 +222,7 @@ end
 ```
 
 ```ruby
-# app/seeds/admin_seed.rb
+# db/seeds/admin_seed.rb
 class AdminSeed < ApplicationSeed
   param_reader :admin_email, default: 'admin@example.com'
 
@@ -223,7 +237,7 @@ end
 ```
 
 ```ruby
-# app/seeds/user_seed.rb
+# db/seeds/user_seed.rb
 class UserSeed < ApplicationSeed
   param_reader :user_prefix, default: 'user'
   param_reader :user_count,  type: :integer, default: 5
@@ -254,11 +268,22 @@ You should try to write each seed object in a way that makes it possible to use 
 You can customize sub-seed invocation with a syntax you already know - the call parameters:
 
 ```ruby
-# excerpt from app/seeds/application_seed.rb
+# excerpt from db/seeds/application_seed.rb
 UserSeed.call user_prefix: 'user_generated_by_app_seed'
 ```
 
 This way, within **UserSeed**, the `user_prefix` param will equal to *user_generated_by_app_seed* regardless of the one specified when calling the application seed from console or command-line.
+
+## Configuration
+
+You can override the default `db/seeds` seed directory if you want to place your seed objects in different place in the project:
+
+```ruby
+# excerpt from config/application.rb
+config.seedify_seed_directory = "#{config.root}/app/seeds"
+```
+
+Remember that everything you put into `app/*` gets preloaded in production so putting your seeds there makes sense only if you actually want to use them in production. That's why they live in `db/seeds` by default.
 
 ## Contributing
 
