@@ -14,7 +14,7 @@ namespace :seedify do
     next if seed == 'ApplicationSeed'
 
     desc "Call the #{seed.underscore.humanize}"
-    task seed.underscore.gsub('/', ':').sub(/_seed$/, '') => :environment do
+    task seed.underscore.gsub('/', ':').sub(/_seed$/, '').sub(/:base$/, '') => :environment do
       seed.constantize.call(task: true)
     end
   end

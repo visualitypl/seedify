@@ -274,6 +274,38 @@ UserSeed.call user_prefix: 'user_generated_by_app_seed'
 
 This way, within **UserSeed**, the `user_prefix` param will equal to *user_generated_by_app_seed* regardless of the one specified when calling the application seed from console or command-line.
 
+### Callbacks and multi-tenancy
+
+If you have code that needs to be run before whole seed suite (similar to `before(:all)` in RSpec), you can use the `before_all` method. It'll be called just once - the first time seed using it or its descendants will be called. Common use case is to pre-set proper schema with multi-tenant application using the [apartment](https://github.com/influitive/apartment) gem:
+
+```ruby
+class TenantSeed < Seedify::Base
+  param_reader :tenant
+
+  before_all :switch_tenant
+
+  def call
+    SomeSeed.call
+    OtherSeed.call
+  end
+
+  protected
+
+  def switch_tenant
+    log "switching to *#{tenant}* schema"
+    Apartment::Tenant.switch!(tenant)
+  end
+end
+
+class SomeSeed < TenantSeed
+end
+
+class OtherSeed < TenantSeed
+end
+```
+
+You can still call tenant seed or some/other seeds separately and proper schema will always be picked.
+
 ## Configuration
 
 You can override the default `db/seeds` seed directory if you want to place your seed objects in different place in the project:
