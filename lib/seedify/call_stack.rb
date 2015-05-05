@@ -3,7 +3,15 @@ module Seedify
     class << self
       def call(proc)
         stack.push(proc)
-        proc.call
+
+        if proc.class.respond_to?(:get_callbacks)
+          Seedify::Callbacks.with_callbacks(proc) do
+            proc.call
+          end
+        else
+          proc.call
+        end
+
         stack.pop
       end
 

@@ -1,6 +1,7 @@
 require 'active_support'
 
 require 'seedify/param_reader'
+require 'seedify/callbacks'
 require 'seedify/base'
 require 'seedify/logger'
 require 'seedify/storage'

@@ -1,6 +1,8 @@
 module Seedify
   module ParamReader
     def inherited(subclass)
+      super
+
       get_param_readers.each do |param_name, options|
         subclass.param_reader param_name, options
       end

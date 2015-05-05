@@ -1,6 +1,7 @@
 module Seedify
   class Base
     extend Seedify::ParamReader
+    extend Seedify::Callbacks
 
     attr_reader :params
 
