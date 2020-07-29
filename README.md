@@ -1,3 +1,7 @@
+# Archived
+
+This project's support has been ceased. No future fixes or features are planned. 
+
 # seedify
 
 [![Gem Version](https://img.shields.io/gem/v/seedify.svg?style=flat-square&label=version)](https://rubygems.org/gems/seedify)
